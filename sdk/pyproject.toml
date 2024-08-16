@@ -13,7 +13,7 @@ authors = [
 
 description="The Eclipse BaSyx Python SDK, an implementation of the Asset Administration Shell for Industry 4.0 systems"
 readme = "README.md"
-license = {file = "LICENSE.txt"} # TODO: Which license do we use?
+license = {file = "../LICENSE"}
 
 
 
