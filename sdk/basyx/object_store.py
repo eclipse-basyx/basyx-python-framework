@@ -14,7 +14,10 @@ from typing import MutableSet, Iterator, Generic, TypeVar, Dict, List, Optional,
 
 from aas_core3.types import Identifiable, Referable, Class
 
+""" TODO: Add docstring """
 _IdentifiableType = TypeVar('_IdentifiableType', bound=Identifiable)
+""" TODO: Add docstring """
+_ReferableType = TypeVar('_ReferableType', bound=Referable)
 
 
 class AbstractObjectProvider(metaclass=abc.ABCMeta):
@@ -61,7 +64,7 @@ class AbstractObjectStore(AbstractObjectProvider, MutableSet[_IdentifiableType],
 
     ObjectStores are special ObjectProvides that – in addition to retrieving objects by
     `Identifier` – allow to add and delete objects (i.e. behave like a Python set).
-    This includes local object stores (like :class:`~.DictObjectStore`) and database `Backends`.
+    This includes local object stores (like `DictObjectStore`) and database `Backends`.
 
     The AbstractObjectStore inherits from the :class:`~collections.abc.MutableSet` abstract collections class and
     therefore implements all the functions of this class.
