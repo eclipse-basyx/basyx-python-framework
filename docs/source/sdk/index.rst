@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-basyx-python-framework documentation
+sdk.basyx.object_store
 ====================================
 
 .. automodule:: sdk.basyx.object_store
