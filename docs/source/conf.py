@@ -69,20 +69,6 @@ intersphinx_mapping = {
     'aas_core3': ('https://aas-core30-python.readthedocs.io/en/latest/', None),
 }
 
-
-def on_missing_reference(app, env, node, contnode):
-    path = node["reftarget"].split(".")
-    # TODO: pyecma376_2 doesn't have a documentation we can link to, so suppress missing reference warnings.
-    #  see: https://github.com/rwth-iat/PyECMA376-2/issues/3
-    if path[0] == "pyecma376_2":
-        return contnode
-    return None
-
-
-def setup(app):
-    app.connect("missing-reference", on_missing_reference)
-
-
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
