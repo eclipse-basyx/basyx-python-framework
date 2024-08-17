@@ -13,7 +13,6 @@
 import os
 import sys
 import datetime
-import sphinx_rtd_theme
 
 # Add the root directory of the project to sys.path
 sys.path.insert(0, os.path.abspath('../..'))
@@ -65,7 +64,8 @@ autodoc_default_options = {
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
     'dateutil': ('https://dateutil.readthedocs.io/en/stable/', None),
-    'lxml': ('https://lxml.de/apidoc/', None)
+    'lxml': ('https://lxml.de/apidoc/', None),
+    'aas_core3': ('https://aas-core30-python.readthedocs.io/en/latest/', None),
 }
 
 
