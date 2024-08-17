@@ -40,7 +40,8 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.intersphinx',
     'sphinx_rtd_theme',
-    'sphinxarg.ext'
+    'sphinxarg.ext',
+    'sphinx_autodoc_typehints'  # Allow TypeVars to be compiled properly.
 ]
 
 # Add any paths that contain templates here, relative to this directory.
