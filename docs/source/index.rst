@@ -1,7 +1,5 @@
 .. basyx-python-framework documentation master file, created by
-   sphinx-quickstart on Fri Aug 16 23:03:59 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+   sphinx-quickstart on Fri Aug 16 23:03:59 2024
 
 Welcome to the Eclipse-BaSyx Python Framework's documentation!
 ==============================================================
@@ -12,6 +10,8 @@ Welcome to the Eclipse-BaSyx Python Framework's documentation!
    :caption: Contents:
 
    sdk/index
+   client/index
+   server/index
 
 
 Indices and tables
