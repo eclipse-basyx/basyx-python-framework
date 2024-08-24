@@ -64,9 +64,8 @@ autodoc_default_options = {
 # Mapping for correctly linking other module documentations.
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
-    'dateutil': ('https://dateutil.readthedocs.io/en/stable/', None),
-    'lxml': ('https://lxml.de/apidoc/', None),
     'aas_core3': ('https://aas-core30-python.readthedocs.io/en/latest/', None),
+    'basyx-python-sdk': ('https://basyx-python-sdk.readthedocs.io/en/latest/', None)
 }
 
 # -- Options for HTML output -------------------------------------------------
