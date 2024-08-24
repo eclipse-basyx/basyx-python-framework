@@ -6,7 +6,8 @@
 # SPDX-License-Identifier: MIT
 """
 This module implements Registries for the AAS, in order to enable resolving global
-`Identifiers`; and mapping `Identifiers` to `Identifiable` objects.
+:attr:`~basyx.aas.model.base.Identifier` and mapping
+:attr:`~basyx.aas.model.base.Identifier` to :class:`~basyx.aas.model.base.Identifiable` objects.
 """
 
 import abc
@@ -22,8 +23,9 @@ _ReferableType = TypeVar('_ReferableType', bound=Referable)
 
 class AbstractObjectProvider(metaclass=abc.ABCMeta):
     """
-    Abstract baseclass for all objects, that allow to retrieve `Identifiable` objects
-    (resp. proxy objects for remote `Identifiable` objects) by their `Identifier`.
+    Abstract baseclass for all objects, that allow to retrieve :class:`~basyx.aas.model.base.Identifiable` objects
+    (resp. proxy objects for remote :class:`~basyx.aas.model.base.Identifiable` objects) by their
+    :attr:`~basyx.aas.model.base.Identifier`
 
     This includes local object stores, database clients and AAS API clients.
     """
@@ -31,25 +33,28 @@ class AbstractObjectProvider(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def get_identifiable(self, identifier: str) -> Identifiable:
         """
-        Find an `Identifiable` by its `Identifier`
+        Find an :class:`~basyx.aas.model.base.Identifiable` by its :attr:`~basyx.aas.model.base.Identifier`
 
         This may include looking up the object's endpoint in a registry and fetching it from an HTTP server or a
         database.
 
-        :param identifier: `Identifier` of the object to return
-        :return: The `Identifiable` object (or a proxy object for a remote `Identifiable` object)
-        :raises KeyError: If no such `Identifiable` can be found
+        :param identifier: :attr:`~basyx.aas.model.base.Identifier` of the object to return
+        :return: The :class:`~basyx.aas.model.base.Identifiable` object (or a proxy object for a remote
+                 :class:`~basyx.aas.model.base.Identifiable` object)
+        :raises KeyError: If no such :class:`~.basyx.aas.model.base.Identifiable` can be found
         """
         pass
 
     def get(self, identifier: str, default: Optional[Identifiable] = None) -> Optional[Identifiable]:
         """
-        Find an object in this set by its `Identifier`, with fallback parameter
+        Find an object in this set by its :attr:`id <basyx.aas.model.base.Identifier>`, with fallback parameter
 
-        :param identifier: `Identifier` of the object to return
-        :param default: An object to be returned, if no object with the given `Identifier` is found
-        :return: The `Identifiable` object with the given `Identifier` in the provider. Otherwise, the ``default``
-                 object or None, if none is given.
+        :param identifier: :class:`~basyx.aas.model.base.Identifier` of the object to return
+        :param default: An object to be returned, if no object with the given
+                        :attr:`id <basyx.aas.model.base.Identifier>` is found
+        :return: The :class:`~basyx.aas.model.base.Identifiable` object with the given
+                 :attr:`id <basyx.aas.model.base.Identifier>` in the provider. Otherwise, the ``default`` object
+                 or None, if none is given.
         """
         try:
             return self.get_identifiable(identifier)
@@ -60,11 +65,12 @@ class AbstractObjectProvider(metaclass=abc.ABCMeta):
 class AbstractObjectStore(AbstractObjectProvider, MutableSet[_IdentifiableType], Generic[_IdentifiableType],
                           metaclass=abc.ABCMeta):
     """
-    Abstract baseclass of for container-like objects for storage of `Identifiable` objects.
+    Abstract baseclass of for container-like objects for storage of :class:`~basyx.aas.model.base.Identifiable` objects.
 
     ObjectStores are special ObjectProvides that – in addition to retrieving objects by
-    `Identifier` – allow to add and delete objects (i.e. behave like a Python set).
-    This includes local object stores (like `DictObjectStore`) and database `Backends`.
+    :attr:`~basyx.aas.model.base.Identifier` – allow to add and delete objects (i.e. behave like a Python set).
+    This includes local object stores (like :class:`DictObjectStore <basyx.aas.model.provider.DictObjectStore>`)
+    and database :class:`Backends <basyx.aas.backend.backends.Backend>`.
 
     The AbstractObjectStore inherits from the :class:`~collections.abc.MutableSet` abstract collections class and
     therefore implements all the functions of this class.
@@ -81,8 +87,8 @@ class AbstractObjectStore(AbstractObjectProvider, MutableSet[_IdentifiableType],
 
 class ObjectStore(AbstractObjectStore[_IdentifiableType], Generic[_IdentifiableType]):
     """
-    A local in-memory object store for `Identifiable` objects, backed by a dict, mapping
-    `Identifier` → `Identifiable`
+    A local in-memory object store for :class:`~basyx.aas.model.base.Identifiable` objects, backed by a dict, mapping
+    :attr:`~basyx.aas.model.base.Identifier` → :class:`~basyx.aas.model.base.Identifiable`
     """
 
     def __init__(self, objects: Iterable[_IdentifiableType] = ()) -> None:
