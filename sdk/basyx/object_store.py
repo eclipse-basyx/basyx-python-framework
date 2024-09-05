@@ -49,7 +49,7 @@ class AbstractObjectProvider(metaclass=abc.ABCMeta):
         """
         Find an object in this set by its :attr:`id <basyx.aas.model.base.Identifier>`, with fallback parameter
 
-        :param identifier: :class:`~basyx.aas.model.base.Identifier` of the object to return
+        :param identifier: :attr:`~basyx.aas.model.base.Identifier` of the object to return
         :param default: An object to be returned, if no object with the given
                         :attr:`id <basyx.aas.model.base.Identifier>` is found
         :return: The :class:`~basyx.aas.model.base.Identifiable` object with the given
