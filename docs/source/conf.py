@@ -13,11 +13,17 @@
 import os
 import sys
 import datetime
+import toml
+
+# Load pyproject.toml
+with open("../../sdk/pyproject.toml", "r") as f:
+    pyproject_data = toml.load(f)
+
+# Extract the version
+release = pyproject_data["project"]["version"]
 
 # Add the root directory of the project to sys.path
 sys.path.insert(0, os.path.abspath('../..'))
-
-
 
 # -- Project information -----------------------------------------------------
 
