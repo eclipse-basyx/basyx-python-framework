@@ -72,10 +72,6 @@ class AbstractObjectStore(AbstractObjectProvider, MutableSet[_IdentifiableType],
     :any:`Identifier <aas_core3.verification.verify_identifier>` – allow to add and delete objects (i.e. behave like a
     Python set).
 
-    TODO:
-    This includes local object stores (like :class:`DictObjectStore <basyx.aas.model.provider.DictObjectStore>`)
-    and database :class:`Backends <basyx.aas.backend.backends.Backend>`.
-
     The AbstractObjectStore inherits from the :class:`~collections.abc.MutableSet` abstract collections class and
     therefore implements all the functions of this class.
     """
