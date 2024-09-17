@@ -1,0 +1,23 @@
+# This requirement list is only used by ReadTheDocs to compile the documentation on their side.
+# For now the pyproject.toml is unfortunately not an option to specify required dependencies as well as self uploading
+# compiled documentations. Until this changes, this file is necessary and should be kept up to date.
+
+################################################
+# Basic requirements of basyx-python-framework #
+################################################
+# These are technically redundant, as they are already kept in the pyproject.toml.
+# Please updated these entries here when updating the projects dependencies.
+
+aas-core3.0~=1.0.4
+
+
+#################################################
+# Additional requirements for building the docs #
+#################################################
+
+sphinx~=7.1.2
+sphinx-rtd-theme~=2.0
+sphinx-argparse~=0.4.0
+sphinx_autodoc_typehints~=2.0.0
+toml~=0.10.2
+urllib3>=1.26,<2.0
