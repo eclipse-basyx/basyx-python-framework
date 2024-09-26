@@ -57,7 +57,10 @@ submodel_reference = aas_types.Reference(
         value=identifier
     )]
 )
-aas.submodels.append(submodel_reference)
+
+# Warning, this overwrites whatever is in the `aas.submodels` list.
+# In your production code, it might make sense to check for already existing content.
+aas.submodels = [submodel_reference]
 
 
 # ===============================================================
@@ -103,6 +106,7 @@ property_ = aas_types.Property(
 )
 
 # Step 3.3: add the Property to the Submodel
+
 # Warning, this overwrites whatever is in the `submodel_elements` list.
 # In your production code, it might make sense to check for already existing content.
 submodel.submodel_elements = [property_]
