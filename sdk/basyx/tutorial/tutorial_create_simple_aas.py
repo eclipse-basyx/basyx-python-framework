@@ -8,6 +8,7 @@ reference using aas-core3.0-python
 
 # Import all type classes from the aas-core3.0-python SDK
 import aas_core3.types as aas_types
+from aas_core3 import verification
 
 # In this tutorial, you'll get a step-by-step guide on how to create an Asset Administration Shell (AAS) and all
 # required objects within. First, you need an AssetInformation object for which you want to create an AAS. After that,
@@ -132,3 +133,13 @@ submodel = aas_types.Submodel(
         )
     ]
 )
+
+##########################################################################
+# Step 4: Verify the Asset Administration Shell (AAS) and its components #
+##########################################################################
+# This step ensures that the AAS conforms to the rules and constraints defined by the AAS metamodel. The fields
+# themselves do not underlie any restriction.
+
+# We can use aas_core3.verification.verify(). This method returns an Iterator that we can collect into a list and
+# for demonstration reasons assert it to be empty.
+assert len(list(verification.verify(aas))) == 0
