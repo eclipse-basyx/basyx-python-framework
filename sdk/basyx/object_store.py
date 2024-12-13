@@ -15,9 +15,8 @@ from typing import MutableSet, Iterator, Generic, TypeVar, Dict, List, Optional,
 
 from aas_core3.types import Identifiable, Referable, Class
 
-# We define types for :class:`aas_core3.types.Identifier` and :class:`aas_core3.types.Referable` for easier referencing.
+# We define types for :class:`aas_core3.types.Identifier` for easier referencing.
 _IdentifiableType = TypeVar('_IdentifiableType', bound=Identifiable)
-_ReferableType = TypeVar('_ReferableType', bound=Referable)
 
 
 class AbstractObjectProvider(metaclass=abc.ABCMeta):

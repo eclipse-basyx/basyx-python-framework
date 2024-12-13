@@ -7,7 +7,7 @@
 
 from basyx.object_store import ObjectStore
 from aas_core3.types import Identifiable, AssetAdministrationShell, AssetInformation, AssetKind
-import aas_core3.types as aas_types
+from basyx import model as aas_types
 
 aas = AssetAdministrationShell(id="urn:x-test:aas1",
                                asset_information=AssetInformation(asset_kind=AssetKind.TYPE))
@@ -78,3 +78,6 @@ print(another_list_element in obj_store.get_children_referable('urn:x-test:submo
 # Retrieve parent of list_element by id_short
 
 print(element_list == obj_store.get_parent_referable("list_1"))
+
+print(aas.__dict__)
+print(type(submodel1), type(aas))
