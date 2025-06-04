@@ -4,11 +4,10 @@ from aas_core3.types import Identifiable
 from fastapi import APIRouter, Request
 
 from server.services.aas_service import AasService
-from server.utils.pagination import Pagination
 from basyx import ObjectStore
 
 
-class AasRouter(Pagination):
+class AasRouter():
     def __init__(self, global_obj_store: ObjectStore[Identifiable]):
         self.router = APIRouter()
         self.service = AasService(global_obj_store)

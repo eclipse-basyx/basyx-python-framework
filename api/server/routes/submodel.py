@@ -6,11 +6,10 @@ from fastapi import APIRouter, Request, HTTPException
 from server.services.submodel_service import SubmodelService
 from basyx import ObjectStore
 
-from server.utils.pagination import Pagination
-from server.utils.decorator import limited
+from server.utils.decorator import limited, paginated
 
 
-class SubmodelRouter(Pagination):
+class SubmodelRouter():
     def __init__(self, global_obj_store: ObjectStore[Identifiable]):
         self.router = APIRouter()
         self.obj_store = global_obj_store
@@ -20,7 +19,7 @@ class SubmodelRouter(Pagination):
     def _setup_routes(self):
         # GetAllSubmodels and path-suffixes
         @self.router.get("")
-        @limited()
+        @paginated()
         async def get_submodel_all(request: Request) -> Any:
             return self.service.get_all_submodels_as_jsonables()
 
