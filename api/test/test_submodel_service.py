@@ -17,6 +17,8 @@ class TestSubmodelService(unittest.TestCase):
 
         with open(os.path.join(base_path, "examples/submodel", "submodel.json"), encoding="utf-8") as f:
             self.submodel_example = json.load(f)
+        with open(os.path.join(base_path, "examples/submodel", "submodel2.json"), encoding="utf-8") as f:
+            self.submodel_example_2 = json.load(f)
         with open(os.path.join(base_path, "examples/submodel", "submodel_modified.json"), encoding="utf-8") as f:
             self.test_submodel_modified = json.load(f)
         with open(os.path.join(base_path, "examples/submodel", "submodel_element.json"), encoding="utf-8") as f:
@@ -27,6 +29,7 @@ class TestSubmodelService(unittest.TestCase):
             self.submodel_with_new_element = json.load(f)
 
         self.submodel_example_id = self.submodel_example["id"]
+        self.submodel_example_2_id = self.submodel_example_2["id"]
         self.invalid_submodel_id = "some_id"
         self.invalid_submodel_element_id = "some_unknown_element_id"
 
@@ -120,7 +123,27 @@ class TestSubmodelService(unittest.TestCase):
         # Teardown
         self.client.delete(BASE_URL + "submodels/" + self.submodel_example_id + "/")
 
+    def test_submodel_pagination(self):
+        # Setup
+        self.client.post(BASE_URL + "submodels", json=self.submodel_example)
+        self.client.post(BASE_URL + "submodels", json=self.submodel_example_2)
 
+        first_response = self.client.get(BASE_URL + "submodels?limit=1")
+        self.assertEqual(self.submodel_example, first_response.json()["result"][0])
+
+        # Extract next cursor out of paging_metadata
+        next_cursor = first_response.json()["paging_metadata"]["next_cursor"]
+        self.assertEqual(1, next_cursor)
+
+        second_response = self.client.get(BASE_URL + "submodels?cursor=" + str(next_cursor) + "&limit=1")
+        self.assertEqual(self.submodel_example_2, second_response.json()["result"][0])
+
+        next_cursor = second_response.json()["paging_metadata"]["next_cursor"]
+        self.assertIsNone(next_cursor)
+
+        # Teardown
+        self.client.delete(BASE_URL + "submodels/" + self.submodel_example_id + "/")
+        self.client.delete(BASE_URL + "submodels/" + self.submodel_example_2_id + "/")
 
 if __name__ == "__main__":
     unittest.main()
