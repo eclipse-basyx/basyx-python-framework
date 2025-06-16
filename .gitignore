@@ -7,6 +7,7 @@
 /venv/
 /sdk/venv
 sdk/basyx_python_framework.egg-info/
+api/basyx_server.egg-info/
 
 # IDE settings
 /.idea/

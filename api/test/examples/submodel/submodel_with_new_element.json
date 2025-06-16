@@ -1,0 +1,43 @@
+{
+    "id": "urn:x-test:submodel1",
+    "submodelElements": [
+        {
+            "idShort": "some_property",
+            "valueType": "xs:int",
+            "value": "1984",
+            "modelType": "Property"
+        },
+        {
+            "idShort": "some_blob",
+            "value": "3q2+7w==",
+            "contentType": "application/octet-stream",
+            "modelType": "Blob"
+        },
+        {
+            "idShort": "ExampleSubmodelList",
+            "typeValueListElement": "SubmodelElementList",
+            "value": [
+                {
+                    "idShort": "list_1",
+                    "value": "3q2+7w==",
+                    "contentType": "application/octet-stream",
+                    "modelType": "Blob"
+                },
+                {
+                    "idShort": "list_2",
+                    "value": "3q2+7w==",
+                    "contentType": "application/octet-stream",
+                    "modelType": "Blob"
+                }
+            ],
+            "modelType": "SubmodelElementList"
+        },
+        {
+          "idShort": "some_property_123",
+          "valueType": "xs:int",
+          "value": "8419",
+          "modelType": "Property"
+        }
+    ],
+    "modelType": "Submodel"
+}

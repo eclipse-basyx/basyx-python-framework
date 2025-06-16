@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "basyx-server" # TODO: name is tbd
+version = "0.1"
+dependencies = ["aas-core3.0","fastapi","basyx-python-framework-base","uvicorn"]
+requires-python = ">=3.8, <3.13"
+authors = [
+  {name = "The Eclipse BaSyx Authors"}
+]
+# TODO: description is tbd
+description="The Eclipse BaSyx Server does stuff"
+readme = "README.md"
+license = {file = "./LICENSE"}
+
+
+[project.optional-dependencies]
+dev = [
+    "mypy",
+    "pycodestyle",
+    "codeblocks",
+    "coverage",
+    "httpx"
+]
