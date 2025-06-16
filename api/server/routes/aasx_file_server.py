@@ -36,4 +36,3 @@ class AasxFileServerRouter:
         @self.router.delete("/{aasx_package_id}")
         async def delete_aasx_package_by_id(aasx_package_id: str) -> Any:
             return self.service.delete_aasx_by_package_id(aasx_package_id)
-        
