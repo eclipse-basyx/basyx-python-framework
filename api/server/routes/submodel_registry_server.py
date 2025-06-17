@@ -6,6 +6,8 @@ from fastapi import APIRouter, Request
 from server.services.submodel_registry_server_service import SubmodelRegistryServerService
 from basyx import ObjectStore
 
+from server.utils.decorator import paginated
+
 
 class SubmodelRegistryRouter:
     def __init__(self, global_obj_store: ObjectStore[Identifiable]):
@@ -16,6 +18,7 @@ class SubmodelRegistryRouter:
 
     def _setup_routes(self):
         @self.router.get("/")
+        @paginated()
         async def get_all_submodel_descriptors() -> Any:
             return self.service.get_all_submodel_descriptors()
 

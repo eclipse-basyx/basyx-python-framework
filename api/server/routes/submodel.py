@@ -6,7 +6,7 @@ from fastapi import APIRouter, Request, HTTPException
 from server.services.submodel_service import SubmodelService
 from basyx import ObjectStore
 
-from server.utils.decorator import limited, paginated
+from server.utils.decorator import paginated
 
 
 class SubmodelRouter():
@@ -24,19 +24,19 @@ class SubmodelRouter():
             return self.service.get_all_submodels_as_jsonables()
 
         @self.router.get("/$metadata")
-        @limited()
+        @paginated()
         async def get_submodel_all_metadata(request: Request) -> Any:
             # Returns metadata for all submodels, stripped of detailed content
             raise HTTPException(status_code=501, detail="This route is not yet implemented!")
 
         @self.router.get("/$reference")
-        @limited()
+        @paginated()
         async def get_submodel_all_reference(request: Request) -> Any:
             # Returns references for all submodels without full data
             raise HTTPException(status_code=501, detail="This route is not yet implemented!")
 
         @self.router.get("/$value")
-        @limited()
+        @paginated()
         async def not_implemented_value(request: Request) -> Any:
             raise HTTPException(status_code=501, detail="This route is not implemented!")
 
@@ -98,6 +98,7 @@ class SubmodelRouter():
             return self.service.post_submodel_element(submodel_identifier, body)
 
         @self.router.get("/{submodel_identifier}/submodel-elements")
+        @paginated()
         async def get_submodel_submodel_elements(submodel_identifier: str) -> Any:
             # Get submodel elements
             self.service.get_submodel_elements(submodel_identifier)
@@ -120,6 +121,7 @@ class SubmodelRouter():
             raise HTTPException(status_code=501, detail="This route is not yet implemented!")
 
         @self.router.get("/{submodel_identifier}/submodel-elements/{id_short_path}")
+        @paginated()
         async def get_submodel_submodel_elements_id_short_path(submodel_identifier: str, id_short_path: str) -> Any:
             return self.service.get_submodel_element(submodel_identifier, id_short_path)
 
