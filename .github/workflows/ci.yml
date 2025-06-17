@@ -69,6 +69,37 @@ jobs:
         cd ./api
         coverage report -m
 
+  aas-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.12" ]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install coverage aas-test-engines uvicorn
+          cd ./sdk
+          pip install .
+          cd ../api
+          pip install .[dev]
+      - name: Start FastAPI server
+        run: |
+          uvicorn server:app --host 127.0.0.1 --port 8080 &
+          sleep 5  # Give the server time to start
+      - name: Run aas-test-engines
+        run: |
+          aas_test_engines check_server http://127.0.0.1:8080 https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-002
+      - name: Stop server
+        if: ${{ always() }}
+        run: |
+          pkill -f "uvicorn"
   static-analysis:
     runs-on: ubuntu-latest
 

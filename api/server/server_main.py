@@ -5,7 +5,9 @@ from server.routes import submodel, aas, aasx_file_server, aas_registry_server, 
 from basyx import object_store
 
 app = FastAPI()
-prefix = "/api/v3.0"
+prefix = "" # FIXME: AAS test engines seems to enforce no prefix of any kind
+# Having something like api/v.XXX might be very useful in real world scenarios when hosting multiple versions. Maybe the
+# prefix might also become configurable / a start-up parameter
 
 central_object_store = object_store.ObjectStore()
 
@@ -21,7 +23,7 @@ app.include_router(submodel_router.router, prefix=prefix + "/submodels")
 app.include_router(aasx_file_router.router, prefix=prefix + "/aasx")
 app.include_router(aas_registry_router.router, prefix=prefix + "/registry")
 app.include_router(submodel_registry_router.router, prefix=prefix + "/submodels")
-app.include_router(aas_router.router, prefix=prefix + "/aas")
+app.include_router(aas_router.router, prefix=prefix + "/shells")
 
 # Start the server if this file is executed directly
 if __name__ == "__main__":
