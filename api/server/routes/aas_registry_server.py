@@ -6,6 +6,8 @@ from fastapi import APIRouter, Request
 from server.services.aas_registry_server_service import AasRegistryServerService
 from basyx import ObjectStore
 
+from server.utils.decorator import paginated
+
 
 class AasRegistryRouter:
     def __init__(self, global_obj_store: ObjectStore[Identifiable]):
@@ -16,6 +18,7 @@ class AasRegistryRouter:
 
     def _setup_routes(self):
         @self.router.get("/")
+        @paginated()
         async def get_all_aas_descriptors() -> Any:
             return self.service.get_all_asset_administration_shell_descriptors()
 

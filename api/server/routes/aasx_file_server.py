@@ -6,6 +6,8 @@ from fastapi import APIRouter, Request
 from server.services.aasx_file_server_service import AasxFileServerService
 from basyx import ObjectStore
 
+from server.utils.decorator import paginated
+
 
 class AasxFileServerRouter:
     def __init__(self, global_obj_store: ObjectStore[Identifiable]):
@@ -16,6 +18,7 @@ class AasxFileServerRouter:
 
     def _setup_routes(self):
         @self.router.get("")
+        @paginated()
         async def get_all_aasx() -> Any:
             return self.service.get_all_aasx_package_ids()
 
