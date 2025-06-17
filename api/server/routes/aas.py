@@ -6,6 +6,7 @@ from fastapi import APIRouter, Request
 from server.services.aas_service import AasService
 from basyx import ObjectStore
 
+from server.utils.decorator import paginated
 
 class AasRouter():
     def __init__(self, global_obj_store: ObjectStore[Identifiable]):
@@ -15,6 +16,7 @@ class AasRouter():
 
     def _setup_routes(self):
         @self.router.get("/shells")
+        @paginated()
         async def get_all_aas() -> Any:
             return self.service.get_all_shells_as_jsonable()
 
@@ -25,6 +27,7 @@ class AasRouter():
 
         @self.router.get("/shells/$reference")
         async def get_all_aas_reference() -> Any:
+            # TODO: Inconsistent
             return {"message": "Content parameters are not supported yet."}
 
         @self.router.get("/shells/{aas_identifier}")
