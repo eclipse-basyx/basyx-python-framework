@@ -5,6 +5,8 @@ from fastapi.testclient import TestClient
 
 from server import app
 
+from api.test import wrap_paginated
+
 BASE_URL = "/api/v3.0/"
 
 
@@ -31,6 +33,9 @@ class TestAASService(unittest.TestCase):
         with open(os.path.join(base_path, "examples/aas", "thumbnail_modified.json"), encoding="utf-8") as f:
             self.thumbnail_example_modified = json.load(f)
 
+        with open(os.path.join(base_path, "examples", "empty_paged_result.json"), encoding="utf-8") as f:
+            self.empty_result = json.load(f)
+
         # FIXME: modified AAS should contain more complex types but deserialization seems to fail
         with open(os.path.join(base_path, "examples/aas", "aas_modified.json"), encoding="utf-8") as f:
             self.aas_example_modified = json.load(f)
@@ -48,14 +53,14 @@ class TestAASService(unittest.TestCase):
     def test_get_all_shells(self):
         response = self.client.get(BASE_URL + "aas/shells")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), [])
+        self.assertEqual(response.json(), self.empty_result)
 
         # Setup
         self.client.post(BASE_URL + "aas/shells", json=self.aas_example)
 
         response = self.client.get(BASE_URL + "aas/shells")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), [self.aas_example])
+        self.assertEqual(response.json(), wrap_paginated([self.aas_example]))
 
         # Teardown
         self.client.delete(BASE_URL + "ass/shells/" + self.shell_example_id)

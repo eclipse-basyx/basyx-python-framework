@@ -19,7 +19,7 @@ class AasRegistryRouter:
     def _setup_routes(self):
         @self.router.get("/")
         @paginated()
-        async def get_all_aas_descriptors() -> Any:
+        async def get_all_aas_descriptors(request: Request) -> Any:
             return self.service.get_all_asset_administration_shell_descriptors()
 
         @self.router.get("/{aas_descriptor_id}")
