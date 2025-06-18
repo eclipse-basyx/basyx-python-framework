@@ -19,7 +19,7 @@ class SubmodelRegistryRouter:
     def _setup_routes(self):
         @self.router.get("/")
         @paginated()
-        async def get_all_submodel_descriptors() -> Any:
+        async def get_all_submodel_descriptors(request: Request) -> Any:
             return self.service.get_all_submodel_descriptors()
 
         @self.router.get("/{submodel_id}")

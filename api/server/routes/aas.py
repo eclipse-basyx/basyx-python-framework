@@ -17,7 +17,7 @@ class AasRouter():
     def _setup_routes(self):
         @self.router.get("/shells")
         @paginated()
-        async def get_all_aas() -> Any:
+        async def get_all_aas(request: Request) -> Any:
             return self.service.get_all_shells_as_jsonable()
 
         @self.router.post("/shells")

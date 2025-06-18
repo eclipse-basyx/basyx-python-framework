@@ -6,6 +6,8 @@ from fastapi.testclient import TestClient
 from server import app
 from aas_core3 import jsonization
 
+from api.test import wrap_paginated
+
 client = TestClient(app)
 BASE_URL = "/api/v3.0/"
 
@@ -18,6 +20,10 @@ class TestFastAPIEndpoints(unittest.TestCase):
         with open(os.path.join(base_path, "examples/aasx", "aasx.json"), encoding="utf-8") as f:
             self.aasx_json = json.load(f)
 
+        with open(os.path.join(base_path, "examples", "empty_paged_result.json"), encoding="utf-8") as f:
+            self.empty_result = json.load(f)
+
+
         self.test_aasx_id = self.aasx_json["id"]
         self.aasx = jsonization.asset_administration_shell_from_jsonable(self.aasx_json)
 
@@ -25,14 +31,14 @@ class TestFastAPIEndpoints(unittest.TestCase):
         # Test empty
         response = self.client.get(BASE_URL + "aasx")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), [])
+        self.assertEqual(response.json(), self.empty_result)
 
         # Setup
         self.client.post(BASE_URL + "aasx", json=self.aasx_json)
 
         response = self.client.get(BASE_URL + "aasx")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), [self.test_aasx_id])
+        self.assertEqual(response.json(), wrap_paginated([self.test_aasx_id]))
 
         # Teardown
         self.client.delete(BASE_URL + "aasx/" + self.test_aasx_id)

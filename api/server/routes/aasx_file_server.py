@@ -19,7 +19,7 @@ class AasxFileServerRouter:
     def _setup_routes(self):
         @self.router.get("")
         @paginated()
-        async def get_all_aasx() -> Any:
+        async def get_all_aasx(request: Request) -> Any:
             return self.service.get_all_aasx_package_ids()
 
         @self.router.get("/{aasx_package_id}")

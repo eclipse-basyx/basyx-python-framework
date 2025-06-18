@@ -6,6 +6,8 @@ from fastapi.testclient import TestClient
 
 from server import app
 
+from api.test import wrap_paginated
+
 client = TestClient(app)
 BASE_URL = "/api/v3.0/"
 
@@ -27,6 +29,9 @@ class TestSubmodelService(unittest.TestCase):
             self.submodel_element_new = json.load(f)
         with open(os.path.join(base_path, "examples/submodel", "submodel_with_new_element.json"), encoding="utf-8") as f:
             self.submodel_with_new_element = json.load(f)
+        with open(os.path.join(base_path, "examples", "empty_paged_result.json"), encoding="utf-8") as f:
+            self.empty_result = json.load(f)
+
 
         self.submodel_example_id = self.submodel_example["id"]
         self.submodel_example_2_id = self.submodel_example_2["id"]
@@ -37,14 +42,14 @@ class TestSubmodelService(unittest.TestCase):
     def test_get_all_submodels(self):
         response = self.client.get(BASE_URL + "submodels")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), [])
+        self.assertEqual(response.json(), self.empty_result)
 
         # Setup
         self.client.post(BASE_URL + "submodels", json=self.submodel_example)
 
         response = self.client.get(BASE_URL + "submodels")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), [self.submodel_example])
+        self.assertEqual(response.json(), wrap_paginated([self.submodel_example]))
 
         # Teardown
         self.client.delete(BASE_URL + "submodels/" + self.submodel_example_id)
@@ -100,6 +105,9 @@ class TestSubmodelService(unittest.TestCase):
         new_submodel = self.client.get(BASE_URL + "submodels/" + self.submodel_example_id)
         self.assertEqual(new_submodel.status_code, 200)
         self.assertEqual(new_submodel.json(), self.submodel_with_new_element)
+
+        # Teardown
+        self.client.delete(BASE_URL + "submodels/" + self.submodel_example_id + "/")
 
     def test_delete_submodel_element(self):
         # Setup

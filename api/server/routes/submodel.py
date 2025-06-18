@@ -99,7 +99,7 @@ class SubmodelRouter():
 
         @self.router.get("/{submodel_identifier}/submodel-elements")
         @paginated()
-        async def get_submodel_submodel_elements(submodel_identifier: str) -> Any:
+        async def get_submodel_submodel_elements(request: Request, submodel_identifier: str) -> Any:
             # Get submodel elements
             self.service.get_submodel_elements(submodel_identifier)
 
@@ -122,7 +122,7 @@ class SubmodelRouter():
 
         @self.router.get("/{submodel_identifier}/submodel-elements/{id_short_path}")
         @paginated()
-        async def get_submodel_submodel_elements_id_short_path(submodel_identifier: str, id_short_path: str) -> Any:
+        async def get_submodel_submodel_elements_id_short_path(request: Request, submodel_identifier: str, id_short_path: str) -> Any:
             return self.service.get_submodel_element(submodel_identifier, id_short_path)
 
         @self.router.post("/{submodel_identifier}/submodel-elements/{id_short_path}")
