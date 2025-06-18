@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 
 from server import app
 
-from api.test import wrap_paginated
+from test import wrap_paginated
 
 BASE_URL = "/api/v3.0/"
 
