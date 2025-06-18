@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 from server import app
 from aas_core3 import jsonization
 
-from api.test import wrap_paginated
+from test import wrap_paginated
 
 client = TestClient(app)
 BASE_URL = "/api/v3.0/"
