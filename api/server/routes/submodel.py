@@ -9,7 +9,7 @@ from basyx import ObjectStore
 from server.utils.decorator import paginated
 
 
-class SubmodelRouter():
+class SubmodelRouter:
     def __init__(self, global_obj_store: ObjectStore[Identifiable]):
         self.router = APIRouter()
         self.obj_store = global_obj_store
