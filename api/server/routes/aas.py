@@ -1,14 +1,14 @@
 from typing import Any
 
 from aas_core3.types import Identifiable
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, HTTPException
 
 from server.services.aas_service import AasService
 from basyx import ObjectStore
 
 from server.utils.decorator import paginated
 
-class AasRouter():
+class AasRouter:
     def __init__(self, global_obj_store: ObjectStore[Identifiable]):
         self.router = APIRouter()
         self.service = AasService(global_obj_store)
@@ -27,8 +27,7 @@ class AasRouter():
 
         @self.router.get("/shells/$reference")
         async def get_all_aas_reference() -> Any:
-            # TODO: Inconsistent
-            return {"message": "Content parameters are not supported yet."}
+            raise HTTPException(status_code=501, detail="This route is not yet implemented!")
 
         @self.router.get("/shells/{aas_identifier}")
         async def get_aas_by_id(aas_identifier: str) -> Any:
